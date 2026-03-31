@@ -21,6 +21,11 @@ public class ObjectGrabber : MonoBehaviour
     private Rigidbody heldObject;
     private InteractableObject _currentHighlight;
 
+    public LineRenderer lineRenderer;
+    public int linePoints = 20;
+    public float timeIntervalbetweenPoints = 0.1f;
+    public float throwSpeed = 10f;
+
     void FixedUpdate()
     {
         //runs on an interval schedule
@@ -35,6 +40,20 @@ public class ObjectGrabber : MonoBehaviour
         //run the detection raycast everyframe to update the highlight
         //this is diff from grab raycast
         UpdateHighlight();
+
+        //draw trajectory when left mousebutton held down
+        if(lineRenderer != null)
+        {
+            if (Input.GetMouseButton(0))
+            {
+                DrawTrajectory();
+                lineRenderer.enabled = true;
+            }
+            else
+            {
+                lineRenderer.enabled = false;
+            }
+        }
     }
 
     void TryGrab()
@@ -129,6 +148,28 @@ public class ObjectGrabber : MonoBehaviour
 
             }
         }
+    }
+
+    void DrawTrajectory()
+    {
+        Vector3 origin = holdPoint.position;
+        //Vector3 startVelocity = throwSpeed * holdPoint.forward;
+        Vector3 startVelocity = transform.forward * throwforce;
+        lineRenderer.positionCount = linePoints;
+        float time = 0;
+        //calculates x,y coordinates of each point from the time
+        for(int i = 0; i< linePoints; i++)
+        {
+            //s=u*t+1/2*g*t*t
+            var x = (startVelocity.x * time) + (Physics.gravity.x / 2 * time * time);
+            var y = (startVelocity.y * time) + (Physics.gravity.y / 2 * time * time);
+            var z = (startVelocity.z * time) + (Physics.gravity.z / 2 * time * time);
+            Vector3 point = new Vector3(x, y, z);
+            //get current world pos of the point relative to start pos
+            lineRenderer.SetPosition(i, origin + point);
+            time += timeIntervalbetweenPoints;
+        }
+
     }
 
     void UpdateHighlight()
