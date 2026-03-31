@@ -14,7 +14,7 @@ public class ObjectGrabber : MonoBehaviour
     public Transform holdPoint;
 
     //how much force is applied when throwing 
-    public float throwforce;
+    public float throwforce = 4f;
 
     private Rigidbody _rb;
     private bool _isHolding = false;
@@ -118,6 +118,17 @@ public class ObjectGrabber : MonoBehaviour
     public void OnThrowPerfomed(InputAction.CallbackContext context)
     {
         if (_isHolding) ThrowObject();
+    }
+
+    void Charge()
+    {
+        if (_isHolding)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+
+            }
+        }
     }
 
     void UpdateHighlight()
