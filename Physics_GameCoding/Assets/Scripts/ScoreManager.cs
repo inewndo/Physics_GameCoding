@@ -5,6 +5,8 @@ public class ScoreManager : MonoBehaviour
 {
     public TextMeshProUGUI scoreDisplay;
     private int scoreNumber = 0;
+    public GameObject ballPrefab;
+    public Transform spawnPoint;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -19,11 +21,13 @@ public class ScoreManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+       
         if (other.gameObject.CompareTag("Interactable"))
         {
             scoreNumber++;
             scoreDisplay.text = "Scored:" + scoreNumber.ToString();
-            Debug.Log("collected");
+            Destroy(other.gameObject, 2f);
+            Instantiate(ballPrefab, spawnPoint.position, spawnPoint.rotation);
         }
     }
     
