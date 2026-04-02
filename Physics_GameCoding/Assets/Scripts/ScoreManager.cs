@@ -24,8 +24,11 @@ public class ScoreManager : MonoBehaviour
        
         if (other.gameObject.CompareTag("Interactable"))
         {
+            //count the score
             scoreNumber++;
+            //display score
             scoreDisplay.text = "Scored:" + scoreNumber.ToString();
+            //destroy the ball which just scored and  spawn new one in the designated space, so the player doesnt have to chase the bouncing away ball
             Destroy(other.gameObject, 2f);
             Instantiate(ballPrefab, spawnPoint.position, spawnPoint.rotation);
         }
