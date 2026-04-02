@@ -96,7 +96,7 @@ public class PressurePlate : MonoBehaviour
         {
             currentWeight -= physObj.puzzleWeight;
             currentWeight = Mathf.Max(0f, currentWeight);
-            CheckActivation();
+            CheckDeactivation();
         }
     }
 
