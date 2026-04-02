@@ -71,6 +71,35 @@ public class PressurePlate : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        PhysicsObjects physObj = other.GetComponent<PhysicsObjects>();
+        if (physObj == null) return;
+
+        //ignore if still being held
+        if (physObj.isHeld) return;
+
+        if (objectsOnPlate.Add(physObj))
+        {
+            currentWeight += physObj.puzzleWeight;
+            CheckActivation();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (isLocked) return;
+        PhysicsObjects physObj = other.GetComponent<PhysicsObjects>();
+        if (physObj == null) return;
+
+        if (objectsOnPlate.Remove(physObj))
+        {
+            currentWeight -= physObj.puzzleWeight;
+            currentWeight = Mathf.Max(0f, currentWeight);
+            CheckActivation();
+        }
+    }
+
     //called whneever weight changes, activates if treshold is met
     void CheckActivation()
     {
