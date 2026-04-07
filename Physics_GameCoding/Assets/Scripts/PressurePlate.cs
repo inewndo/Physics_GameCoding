@@ -34,6 +34,9 @@ public class PressurePlate : MonoBehaviour
     Vector3 plateResetPos;
     Vector3 platePressedPos;
 
+    [SerializeField] private FillBar processbar;
+
+
     HashSet<PhysicsObjects> objectsOnPlate = new HashSet<PhysicsObjects>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -46,6 +49,9 @@ public class PressurePlate : MonoBehaviour
             //moving down
             platePressedPos = plateResetPos + Vector3.down * pressDepth;
         }
+        currentWeight = 0;
+        processbar.UpdateProcessBar(weightTreshold, currentWeight);
+       
     }
 
     //fires when any collider enters the trigger zone

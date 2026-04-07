@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class PhysicsObjects : MonoBehaviour
@@ -30,6 +31,7 @@ public class PhysicsObjects : MonoBehaviour
     Rigidbody rb;
     PhysicsMaterial physMat;
     public bool isHeld = false;
+    public TextMeshProUGUI weight;
 
     void Awake()
     {
@@ -37,6 +39,7 @@ public class PhysicsObjects : MonoBehaviour
         //call function here
         ApplyRigidBodySettings();
         ApplySurfaceSettings();
+        weight.text = puzzleWeight.ToString();
     }
 
     //sets mass and drag directly

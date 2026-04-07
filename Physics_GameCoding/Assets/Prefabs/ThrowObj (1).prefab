@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7416672034707676819}
   - component: {fileID: 7125920001630020718}
   - component: {fileID: 1701431514161447188}
+  - component: {fileID: 6640171640815506196}
   m_Layer: 0
   m_Name: ThrowObj (1)
   m_TagString: Interactable
@@ -141,7 +142,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 105166228857528657}
-  m_Material: {fileID: 13400000, guid: 73d4d394c042c99448e1e2d783bcde66, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -155,3 +156,22 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6640171640815506196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 105166228857528657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 364d5f2916f612e4284f19b4562c7781, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PhysicsObjects
+  mass: 1
+  drag: 0.5
+  angularDrag: 0.5
+  bouncinnes: 1
+  friction: 0.6
+  puzzleWeight: -1
+  isHeld: 0
