@@ -130,12 +130,28 @@ public class ObjectGrabber : MonoBehaviour
 
     public void OnGrabPerformed(InputAction.CallbackContext context)
     {
-        if (_isHolding) DropObject();
-        else TryGrab();
+        if (!context.performed) return;
+        if (_isHolding)
+        {
+            DropObject();
+
+
+        }
+        else
+        {
+            TryGrab();
+
+        }
+
+
     }
 
-    public void OnThrowPerfomed(InputAction.CallbackContext context)
+    public void OnThrowPerformed(InputAction.CallbackContext context)
     {
+        if ((!context.performed))
+        {
+            return;
+        }
         if (_isHolding) ThrowObject();
     }
 
