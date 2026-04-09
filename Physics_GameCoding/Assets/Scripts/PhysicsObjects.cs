@@ -39,7 +39,6 @@ public class PhysicsObjects : MonoBehaviour
         //call function here
         ApplyRigidBodySettings();
         ApplySurfaceSettings();
-        weight.text = puzzleWeight.ToString();
     }
 
     //sets mass and drag directly
