@@ -34,9 +34,8 @@ public class PressurePlate : MonoBehaviour
     Vector3 plateResetPos;
     Vector3 platePressedPos;
 
-    [SerializeField] private FillBar processbar;
 
-
+    HashSet<PhysicsObjects> countedObjects = new HashSet<PhysicsObjects>();
     HashSet<PhysicsObjects> objectsOnPlate = new HashSet<PhysicsObjects>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -49,8 +48,7 @@ public class PressurePlate : MonoBehaviour
             //moving down
             platePressedPos = plateResetPos + Vector3.down * pressDepth;
         }
-        currentWeight = 0;
-        processbar.UpdateProcessBar(weightTreshold, currentWeight);
+        //currentWeight = 0;
        
     }
 
@@ -62,7 +60,7 @@ public class PressurePlate : MonoBehaviour
         if (physObj == null) return;
 
         //so it does not  trigger when you are still holding the obj in trigger zone
-        if (physObj.isHeld) return;
+        //if (physObj.isHeld) return;
 
         ////first simple version
         //currentWeight += physObj.puzzleWeight;
@@ -70,11 +68,13 @@ public class PressurePlate : MonoBehaviour
         //CheckActivation();
 
         //this is instead of adding it to a list to avoid double activating
-        if (objectsOnPlate.Add(physObj))
-        {
-            currentWeight += physObj.puzzleWeight;
-            CheckActivation();
-        }
+        //if (objectsOnPlate.Add(physObj))
+        //{
+        //    currentWeight += physObj.puzzleWeight;
+        //    CheckActivation();
+        //}
+        objectsOnPlate.Add(physObj);
+
     }
 
     private void OnTriggerStay(Collider other)
@@ -82,14 +82,19 @@ public class PressurePlate : MonoBehaviour
         PhysicsObjects physObj = other.GetComponent<PhysicsObjects>();
         if (physObj == null) return;
 
-        //ignore if still being held
-        if (physObj.isHeld) return;
-
-        if (objectsOnPlate.Add(physObj))
+        if(!physObj.isHeld && countedObjects.Add(physObj))
         {
-            currentWeight += physObj.puzzleWeight;
+            currentWeight += physObj.GetWeight();
             CheckActivation();
         }
+        //ignore if still being held
+        //if (physObj.isHeld) return;
+
+        //if (objectsOnPlate.Add(physObj))
+        //{
+        //    currentWeight += physObj.puzzleWeight;
+        //    CheckActivation();
+        //}
     }
 
     private void OnTriggerExit(Collider other)
@@ -98,12 +103,13 @@ public class PressurePlate : MonoBehaviour
         PhysicsObjects physObj = other.GetComponent<PhysicsObjects>();
         if (physObj == null) return;
 
-        if (objectsOnPlate.Remove(physObj))
+        if (countedObjects.Remove(physObj))
         {
             currentWeight -= physObj.puzzleWeight;
             currentWeight = Mathf.Max(0f, currentWeight);
             CheckDeactivation();
         }
+        objectsOnPlate.Remove(physObj);
     }
 
     //called whneever weight changes, activates if treshold is met
