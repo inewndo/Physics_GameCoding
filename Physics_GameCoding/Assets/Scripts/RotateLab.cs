@@ -3,8 +3,8 @@ using UnityEngine;
 public class RotateLab : MonoBehaviour
 {
     [Header("Rotation Settings")]
-    public float rotateSpeed = 50f;
-    public float maxRotation = 360f;
+    private float rotateSpeed = 40f;
+    private float maxRotation = 360f;
 
     private float currentAngle = 0f;
     private float startAngle = 0f;
