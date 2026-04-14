@@ -4,7 +4,7 @@ using UnityEngine;
 public class LabFixedPlatforms : MonoBehaviour
 {
     public Transform[] waypoints;
-    private float speed = 2f;
+    private float speed = 1f;
     private int currentWaypointIndex = 0;
     private bool isWaiting = false;
 
