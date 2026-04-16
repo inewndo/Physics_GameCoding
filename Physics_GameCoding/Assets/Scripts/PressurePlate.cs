@@ -34,6 +34,8 @@ public class PressurePlate : MonoBehaviour
     Vector3 plateResetPos;
     Vector3 platePressedPos;
 
+   
+
 
     HashSet<PhysicsObjects> countedObjects = new HashSet<PhysicsObjects>();
     HashSet<PhysicsObjects> objectsOnPlate = new HashSet<PhysicsObjects>();
